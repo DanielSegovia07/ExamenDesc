@@ -1,44 +1,50 @@
 const {ethers} = require('ethers')
-const {provider, getWallet, getPublicKey} = require('./accountManager')
 
-async function createTransaction(contractAddress,abi,method, params, account) {
-const etherInterface = new ethers.utils.Interface(abi)
-const wallet = getWallet(account)
-const publickeys = getPublicKey(account)
-const nonce = await provider.getTransactionCount(publickeys,'latest')
-const gasPrice = await provider.getGasPrice()
-const network = await provider.getNetwork()
-const tx ={
-    from:publickeys,
-    to:contractAddress,
-    nonce:nonce,
-    gasPrice,
-    chainId:network.chainId,
-    data: etherInterface.encodeFunctionData(method,params)
-}
-console.log(tx)
-tx.gasLimit = await provider.estimateGas(tx)
-const signTx = await wallet.signTransaction(tx)
-const receipt = await provider.sendTransaction(signTx)
-await receipt.wait()
-console.log(`Tx ${method} sent:`,receipt.hash)
-return receipt
+
+const provider = new ethers.providers.JsonRpcProvider(process.env.API_URL)
+
+
+function getWallet(accountIndex) {
+    const privateKeys = process.env.PRIVATE_KEYS.split(',')
+    if (accountIndex >= 0 && accountIndex < privateKeys.length) {
+        return new ethers.Wallet(privateKeys[accountIndex], provider)
+    }
+    throw new Error(`Índice de cuenta inválido: ${accountIndex}`)
 }
 
-async function depositToContract(contractAddress,abi,amount,account) {
-    const wallet = getWallet(account)
-    const contract = new ethers.Contract(contractAddress,abi,wallet)
-    const tx = contract.deposit({value:ethers.utils.parseEther(amount)})
-    console.log("Deposit Done: ",tx.hash)
-    return tx
-    
+
+function getPublicKey(accountIndex) {
+    const publicKeys = process.env.PUBLIC_KEYS.split(',')
+    if (accountIndex >= 0 && accountIndex < publicKeys.length) {
+        return publicKeys[accountIndex]
+    }
+    throw new Error(`Índice de cuenta inválido: ${accountIndex}`)
 }
 
-function getContract(contractAddress,abi){
-return new ethers.Contract(contractAddress,abi,provider)
+async function createTransaction(contractAddress, abi, method, params, account) {
+    try {
+        const wallet = getWallet(parseInt(account))
+        const contract = new ethers.Contract(contractAddress, abi, wallet)
+        
+        const tx = await contract[method](...params)
+        const receipt = await tx.wait()
+        
+        console.log(`Tx ${method} ejecutada:`, receipt.transactionHash)
+        return receipt
+    } catch (error) {
+        console.error(`Error en transacción ${method}:`, error)
+        throw error
+    }
 }
-module.exports={
+
+function getContract(contractAddress, abi) {
+    return new ethers.Contract(contractAddress, abi, provider)
+}
+
+module.exports = {
     createTransaction,
-    depositToContract,
-    getContract
+    getContract,
+    provider,
+    getWallet,
+    getPublicKey
 }

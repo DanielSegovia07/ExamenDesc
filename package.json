@@ -2,6 +2,8 @@
   "dependencies": {
     "@openzeppelin/contracts": "^4.9.6",
     "axios": "^1.13.1",
+    "body-parser": "^2.2.1",
+    "cors": "^2.8.5",
     "dotenv": "^16.6.1",
     "express": "^4.21.2",
     "find-config": "^1.0.0",

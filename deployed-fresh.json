@@ -1,0 +1,20 @@
+{
+  "GameStore": "0xbFb748D46D756D7aa8Afc69F4179923B485A4Deb",
+  "network": "sepolia",
+  "timestamp": "2025-11-25T23:51:58.088Z",
+  "deployer": "0x2bc6e60CD93EeF266469273BDE09203f6565eFB3",
+  "owners": [
+    "0x2bc6e60CD93EeF266469273BDE09203f6565eFB3",
+    "0x757739075784B053788Da250440400f03Bc5FC4C"
+  ],
+  "payees": [
+    "0x2bc6e60CD93EeF266469273BDE09203f6565eFB3",
+    "0x757739075784B053788Da250440400f03Bc5FC4C"
+  ],
+  "shares": [
+    80,
+    20
+  ],
+  "requiredApprovals": 2,
+  "transactionHash": "0xaa98603327d35159815506ead8eb91f5de713268607bbbca67d5a302d57fc6db"
+}
