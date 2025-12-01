@@ -15,9 +15,9 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 50%, #16213e 100%);
             min-height: 100vh;
-            color: #333;
+            color: #e0e0e0;
             padding: 20px;
         }
 
@@ -29,233 +29,288 @@
         header {
             text-align: center;
             margin-bottom: 30px;
-            color: white;
+            color: #ffffff;
         }
 
         header h1 {
             font-size: 2.5rem;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
         header p {
             font-size: 1.1rem;
-            opacity: 0.9;
+            opacity: 0.85;
+            color: #b0b0b0;
         }
 
         .network-banner {
-            background: #f59e0b;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
             color: white;
-            padding: 10px;
+            padding: 12px;
             text-align: center;
-            border-radius: 10px;
+            border-radius: 8px;
             margin-bottom: 20px;
-            font-weight: bold;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
         }
 
         .wallet-section {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(135deg, #1e1e2e 0%, #2a2a3e 100%);
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             margin-bottom: 30px;
             text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .wallet-info {
             margin-top: 15px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            border-left: 4px solid #4f46e5;
+            padding: 18px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            border-left: 3px solid #5b8def;
             text-align: left;
+            backdrop-filter: blur(10px);
         }
 
         .btn {
-            padding: 12px 24px;
-            background: #4f46e5;
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #5b8def 0%, #4a7bc8 100%);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             margin: 5px;
+            box-shadow: 0 4px 12px rgba(91, 141, 239, 0.3);
+            letter-spacing: 0.3px;
         }
 
         .btn:hover {
-            background: #3730a3;
+            background: linear-gradient(135deg, #6b9dff 0%, #5b8def 100%);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 6px 20px rgba(91, 141, 239, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
         }
 
         .btn:disabled {
-            background: #9ca3af;
+            background: #3a3a4a;
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
+            opacity: 0.5;
         }
 
         .btn-success {
-            background: #10b981;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
         }
 
         .btn-success:hover {
-            background: #059669;
+            background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
         }
 
         .btn-warning {
-            background: #f59e0b;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
         }
 
         .btn-warning:hover {
-            background: #d97706;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
         }
 
         .btn-secondary {
-            background: #6b7280;
+            background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
+            box-shadow: 0 4px 12px rgba(75, 85, 99, 0.3);
         }
 
         .btn-secondary:hover {
-            background: #4b5563;
+            background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+            box-shadow: 0 6px 20px rgba(75, 85, 99, 0.4);
         }
 
         .btn-danger {
-            background: #ef4444;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
         }
 
         .btn-danger:hover {
-            background: #dc2626;
+            background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
         }
 
         .btn-info {
-            background: #06b6d4;
+            background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
         }
 
         .btn-info:hover {
-            background: #0891b2;
+            background: linear-gradient(135deg, #22d3ee 0%, #06b6d4 100%);
+            box-shadow: 0 6px 20px rgba(6, 182, 212, 0.4);
         }
 
         .btn-account-0 {
-            background: #8b5cf6;
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
         }
 
         .btn-account-0:hover {
-            background: #7c3aed;
+            background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
         }
 
         .btn-account-1 {
-            background: #ec4899;
+            background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+            box-shadow: 0 4px 12px rgba(236, 72, 153, 0.3);
         }
 
         .btn-account-1:hover {
-            background: #db2777;
+            background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%);
+            box-shadow: 0 6px 20px rgba(236, 72, 153, 0.4);
         }
 
         .tabs {
-            background: white;
-            border-radius: 15px;
+            background: linear-gradient(135deg, #1e1e2e 0%, #2a2a3e 100%);
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .tab-header {
             display: flex;
-            background: #f8fafc;
-            border-bottom: 1px solid #e2e8f0;
+            background: rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             flex-wrap: wrap;
+            backdrop-filter: blur(10px);
         }
 
         .tab-btn {
             flex: 1;
-            padding: 15px 20px;
+            padding: 16px 20px;
             background: none;
             border: none;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
-            color: #64748b;
-            transition: all 0.3s ease;
+            color: #a0a0a0;
+            transition: all 0.25s ease;
             min-width: 120px;
+            position: relative;
         }
 
         .tab-btn:hover {
-            background: #e2e8f0;
-            color: #374151;
+            background: rgba(255, 255, 255, 0.05);
+            color: #d0d0d0;
         }
 
         .tab-btn.active {
-            background: white;
-            color: #4f46e5;
-            border-bottom: 3px solid #4f46e5;
+            background: rgba(91, 141, 239, 0.15);
+            color: #5b8def;
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #5b8def 0%, #4a7bc8 100%);
         }
 
         .tab-content {
             padding: 30px;
             display: none;
+            background: transparent;
         }
 
         .tab-content.active {
             display: block;
         }
 
+        .tab-content h2 {
+            color: #ffffff;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .tab-content p {
+            color: #b0b0b0;
+        }
+
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+            gap: 24px;
             margin-top: 20px;
         }
 
         .card {
-            background: white;
-            border-radius: 12px;
+            background: linear-gradient(135deg, #1e1e2e 0%, #2a2a3e 100%);
+            border-radius: 10px;
             padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border: 1px solid #e2e8f0;
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
         }
 
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+            border-color: rgba(91, 141, 239, 0.3);
         }
 
         .card.owned {
-            border-left: 4px solid #10b981;
+            border-left: 3px solid #10b981;
         }
 
         .card.for-sale {
-            border-left: 4px solid #f59e0b;
+            border-left: 3px solid #f59e0b;
         }
 
         .card.inactive {
-            border-left: 4px solid #ef4444;
-            opacity: 0.7;
+            border-left: 3px solid #ef4444;
+            opacity: 0.6;
         }
 
         .card h3 {
-            color: #1f2937;
-            margin-bottom: 10px;
+            color: #ffffff;
+            margin-bottom: 12px;
             font-size: 1.2rem;
+            font-weight: 600;
         }
 
         .card p {
-            color: #6b7280;
+            color: #b0b0b0;
             margin-bottom: 8px;
             font-size: 0.9rem;
+            line-height: 1.5;
         }
 
         .card .price {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #4f46e5;
-            margin: 10px 0;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #5b8def;
+            margin: 12px 0;
+            text-shadow: 0 0 10px rgba(91, 141, 239, 0.3);
         }
 
         .card-actions {
-            margin-top: 15px;
+            margin-top: 18px;
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
@@ -273,69 +328,83 @@
             height: 150px;
             object-fit: cover;
             border-radius: 8px;
-            margin-bottom: 10px;
-            background: #f3f4f6;
+            margin-bottom: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .game-genre {
             display: inline-block;
-            background: #e0e7ff;
-            color: #4f46e5;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 0.8rem;
+            background: rgba(91, 141, 239, 0.2);
+            color: #5b8def;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
             margin-bottom: 10px;
+            font-weight: 600;
+            border: 1px solid rgba(91, 141, 239, 0.3);
         }
 
         .loading {
             text-align: center;
             padding: 40px;
-            color: #6b7280;
+            color: #8a8a8a;
         }
 
         .error {
-            background: #fef2f2;
-            color: #dc2626;
+            background: rgba(239, 68, 68, 0.15);
+            color: #fca5a5;
             padding: 15px;
             border-radius: 8px;
-            border-left: 4px solid #dc2626;
+            border-left: 3px solid #ef4444;
             margin: 10px 0;
+            border: 1px solid rgba(239, 68, 68, 0.2);
         }
 
         .success {
-            background: #f0fdf4;
-            color: #16a34a;
+            background: rgba(16, 185, 129, 0.15);
+            color: #6ee7b7;
             padding: 15px;
             border-radius: 8px;
-            border-left: 4px solid #16a34a;
+            border-left: 3px solid #10b981;
             margin: 10px 0;
+            border: 1px solid rgba(16, 185, 129, 0.2);
         }
 
         .empty-state {
             text-align: center;
             padding: 40px;
-            color: #6b7280;
+            color: #8a8a8a;
         }
 
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 18px;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-weight: 600;
-            color: #374151;
+            color: #d0d0d0;
+            font-size: 14px;
         }
 
         .form-group input,
         .form-group textarea,
         .form-group select {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #d1d5db;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 6px;
-            font-size: 16px;
+            font-size: 15px;
+            color: #e0e0e0;
+            transition: all 0.25s ease;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #6a6a6a;
         }
 
         .form-group textarea {
@@ -347,8 +416,9 @@
         .form-group textarea:focus,
         .form-group select:focus {
             outline: none;
-            border-color: #4f46e5;
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+            border-color: #5b8def;
+            box-shadow: 0 0 0 3px rgba(91, 141, 239, 0.2);
+            background: rgba(0, 0, 0, 0.4);
         }
 
         .modal {
@@ -358,59 +428,76 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.75);
             z-index: 1000;
             align-items: center;
             justify-content: center;
+            backdrop-filter: blur(5px);
         }
 
         .modal-content {
-            background: white;
-            padding: 30px;
+            background: linear-gradient(135deg, #1e1e2e 0%, #2a2a3e 100%);
+            padding: 32px;
             border-radius: 12px;
             max-width: 500px;
             width: 90%;
             max-height: 90vh;
             overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .modal-header {
             display: flex;
-            justify-content: between;
+            justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
+        }
+
+        .modal-header h3 {
+            color: #ffffff;
+            font-weight: 600;
         }
 
         .modal-close {
             background: none;
             border: none;
-            font-size: 24px;
+            font-size: 28px;
             cursor: pointer;
-            color: #6b7280;
+            color: #8a8a8a;
+            transition: color 0.2s ease;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            color: #ffffff;
         }
 
         .status-badge {
             display: inline-block;
-            padding: 4px 8px;
+            padding: 5px 10px;
             border-radius: 12px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 600;
             margin-left: 10px;
         }
 
         .status-active {
-            background: #d1fae5;
-            color: #065f46;
+            background: rgba(16, 185, 129, 0.2);
+            color: #6ee7b7;
+            border: 1px solid rgba(16, 185, 129, 0.3);
         }
 
         .status-inactive {
-            background: #fee2e2;
-            color: #991b1b;
+            background: rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+            border: 1px solid rgba(239, 68, 68, 0.3);
         }
 
         .status-for-sale {
-            background: #fef3c7;
-            color: #92400e;
+            background: rgba(245, 158, 11, 0.2);
+            color: #fcd34d;
+            border: 1px solid rgba(245, 158, 11, 0.3);
         }
 
         @media (max-width: 768px) {
@@ -445,71 +532,71 @@
 <body>
     <div class="container">
         <header>
-            <h1>🎮 GameStore Web3 - Sepolia</h1>
+            <h1>GameStore Web3 - Sepolia</h1>
             <p>Marketplace de videojuegos NFT en Sepolia Testnet</p>
             <p><small>Contrato: <span id="contractAddress">0xbFb748D46D756D7aa8Afc69F4179923B485A4Deb</span></small></p>
         </header>
 
         <div class="network-banner">
-            🔗 Esta dApp solo funciona en Sepolia Testnet
+            Esta dApp solo funciona en Sepolia Testnet
         </div>
 
         <div class="wallet-section">
-            <button id="connectWallet" class="btn">🔗 Conectar MetaMask (Sepolia)</button>
+            <button id="connectWallet" class="btn">Conectar MetaMask (Sepolia)</button>
             <div id="walletInfo" class="wallet-info" style="display: none;">
-                <p><strong>📧 Dirección:</strong> <span id="walletAddress"></span></p>
-                <p><strong>⛓️ Red:</strong> <span id="networkInfo"></span></p>
-                <p><strong>💰 Balance:</strong> <span id="walletBalance"></span> ETH</p>
+                <p><strong>Dirección:</strong> <span id="walletAddress"></span></p>
+                <p><strong>Red:</strong> <span id="networkInfo"></span></p>
+                <p><strong>Balance:</strong> <span id="walletBalance"></span> ETH</p>
             </div>
         </div>
 
         <div class="tabs">
             <div class="tab-header">
-                <button class="tab-btn active" onclick="openTab('marketplace')">🛍️ Marketplace</button>
-                <button class="tab-btn" onclick="openTab('library')">📚 Mi Biblioteca</button>
-                <button class="tab-btn" onclick="openTab('my-games')">🎮 Mis Juegos Creados</button>
-                <button class="tab-btn" onclick="openTab('admin')">⚙️ Admin</button>
-                <button class="tab-btn" onclick="openTab('wallet')">💼 Wallet</button>
-                <button class="tab-btn" onclick="openTab('contract')">📊 Contrato</button>
+                <button class="tab-btn active" onclick="openTab('marketplace')">Marketplace</button>
+                <button class="tab-btn" onclick="openTab('library')">Mi Biblioteca</button>
+                <button class="tab-btn" onclick="openTab('my-games')">Mis Juegos Creados</button>
+                <button class="tab-btn" onclick="openTab('admin')">Admin</button>
+                <button class="tab-btn" onclick="openTab('wallet')">Wallet</button>
+                <button class="tab-btn" onclick="openTab('contract')">Contrato</button>
             </div>
 
             <!-- Tab Marketplace -->
             <div id="marketplace" class="tab-content active">
-                <h2>🛍️ Juegos NFT en Sepolia</h2>
-                <button onclick="loadGames()" class="btn">🔄 Actualizar Marketplace</button>
+                <h2>Juegos NFT en Sepolia</h2>
+                <button onclick="loadGames()" class="btn">Actualizar Marketplace</button>
                 <div id="gamesList" class="grid"></div>
             </div>
 
             <!-- Tab Mi Biblioteca -->
             <div id="library" class="tab-content">
-                <h2>📚 Mi Biblioteca de Juegos</h2>
+                <h2>Mi Biblioteca de Juegos</h2>
                 <p><small>Juegos que has comprado o que posees</small></p>
-                <button onclick="loadMyLibrary()" class="btn">🔄 Actualizar Biblioteca</button>
+                <button onclick="loadMyLibrary()" class="btn">Actualizar Biblioteca</button>
                 <div id="libraryList" class="grid">
                     <div class="empty-state">
-                        <p>🔌 Conecta tu wallet para ver tu biblioteca</p>
+                        <p>Conecta tu wallet para ver tu biblioteca</p>
                     </div>
                 </div>
             </div>
 
             <!-- Tab Mis Juegos Creados -->
             <div id="my-games" class="tab-content">
-                <h2>🎮 Mis Juegos Creados</h2>
+                <h2>Mis Juegos Creados</h2>
                 <p><small>Juegos que has creado y puesto en venta</small></p>
-                <button onclick="loadMyCreatedGames()" class="btn">🔄 Actualizar Mis Juegos</button>
+                <button onclick="loadMyCreatedGames()" class="btn">Actualizar Mis Juegos</button>
                 <div id="myGamesList" class="grid">
                     <div class="empty-state">
-                        <p>🔌 Conecta tu wallet para ver tus juegos</p>
+                        <p>Conecta tu wallet para ver tus juegos</p>
                     </div>
                 </div>
             </div>
 
             <!-- Tab Admin -->
             <div id="admin" class="tab-content">
-                <h2>⚙️ Panel Administrativo - Sepolia</h2>
+                <h2>Panel Administrativo - Sepolia</h2>
                 
                 <div class="card">
-                    <h3>🎨 Crear Nuevo Juego NFT</h3>
+                    <h3>Crear Nuevo Juego NFT</h3>
                     <form id="mintForm" onsubmit="mintGame(event)">
                         <div class="form-group">
                             <label for="gameName">Nombre del Juego:</label>
@@ -549,35 +636,35 @@
                             <label for="recipient">Destinatario:</label>
                             <input type="text" id="recipient" placeholder="0x..." required>
                         </div>
-                        <button type="submit" class="btn btn-success">🎮 Crear Juego NFT</button>
+                        <button type="submit" class="btn btn-success">Crear Juego NFT</button>
                     </form>
                 </div>
 
                 <div class="card" style="margin-top: 20px;">
-                    <h3>🛠️ Gestión de Juegos</h3>
-                    <button onclick="loadAllGamesForAdmin()" class="btn">📋 Ver Todos los Juegos</button>
+                    <h3>Gestión de Juegos</h3>
+                    <button onclick="loadAllGamesForAdmin()" class="btn">Ver Todos los Juegos</button>
                     <div id="adminGamesList" class="grid" style="margin-top: 20px;"></div>
                 </div>
 
                 <div class="card" style="margin-top: 20px;">
-                    <h3>💰 Gestión de Pagos</h3>
-                    <button onclick="releasePayments()" class="btn btn-warning">💸 Liberar Pagos a Todos</button>
+                    <h3>Gestión de Pagos</h3>
+                    <button onclick="releasePayments()" class="btn btn-warning">Liberar Pagos a Todos</button>
                 </div>
             </div>
 
             <!-- Tab Wallet -->
             <div id="wallet" class="tab-content">
-                <h2>💼 Multi-sign Wallet - Sepolia</h2>
+                <h2>Multi-sign Wallet - Sepolia</h2>
                 
                 <div class="card">
-                    <h3>💰 Fondear Contrato</h3>
+                    <h3>Fondear Contrato</h3>
                     <p><small>Envía ETH al contrato para poder ejecutar transacciones</small></p>
-                    <button onclick="fundContract()" class="btn btn-warning">💰 Fondear Contrato</button>
+                    <button onclick="fundContract()" class="btn btn-warning">Fondear Contrato</button>
                     <p><small>Balance actual: <span id="contractBalance">0.0</span> ETH</small></p>
                 </div>
 
                 <div class="card" style="margin-top: 20px;">
-                    <h3>📤 Enviar Transacción</h3>
+                    <h3>Enviar Transacción</h3>
                     <form id="transactionForm" onsubmit="submitTransaction(event)">
                         <div class="form-group">
                             <label for="txTo">Destinatario:</label>
@@ -587,21 +674,21 @@
                             <label for="txAmount">Cantidad (ETH):</label>
                             <input type="number" id="txAmount" placeholder="0.01" step="0.001" min="0.001" required>
                         </div>
-                        <button type="submit" class="btn">📤 Enviar Transacción</button>
+                        <button type="submit" class="btn">Enviar Transacción</button>
                     </form>
                 </div>
 
                 <div class="card" style="margin-top: 20px;">
-                    <h3>📋 Transacciones Pendientes</h3>
-                    <button onclick="loadTransactions()" class="btn">🔄 Actualizar Transacciones</button>
+                    <h3>Transacciones Pendientes</h3>
+                    <button onclick="loadTransactions()" class="btn">Actualizar Transacciones</button>
                     <div id="transactionsList" style="margin-top: 20px;"></div>
                 </div>
             </div>
 
             <!-- Tab Contrato -->
             <div id="contract" class="tab-content">
-                <h2>📊 Información del Contrato</h2>
-                <button onclick="loadContractInfo()" class="btn">🔄 Actualizar Info</button>
+                <h2>Información del Contrato</h2>
+                <button onclick="loadContractInfo()" class="btn">Actualizar Info</button>
                 <div id="contractInfo" style="margin-top: 20px;"></div>
             </div>
         </div>
@@ -610,7 +697,7 @@
         <div id="editGameModal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3>✏️ Editar Juego</h3>
+                    <h3>Editar Juego</h3>
                     <button class="modal-close" onclick="closeEditModal()">×</button>
                 </div>
                 <form id="editGameForm" onsubmit="updateGameInfo(event)">
@@ -645,8 +732,8 @@
                         <input type="number" id="editGamePrice" step="0.001" min="0.001" required>
                     </div>
                     <div class="card-actions">
-                        <button type="submit" class="btn btn-success">💾 Guardar Cambios</button>
-                        <button type="button" class="btn btn-secondary" onclick="closeEditModal()">❌ Cancelar</button>
+                        <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                        <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Cancelar</button>
                     </div>
                 </form>
             </div>
@@ -697,7 +784,7 @@
 
         async function connectWallet() {
             if (!window.ethereum) {
-                showNotification('⚠️ Por favor instala MetaMask para usar esta dApp', 'error');
+                showNotification('Por favor instala MetaMask para usar esta dApp', 'error');
                 return;
             }
 
@@ -724,15 +811,15 @@
                 // Listen for chain changes
                 window.ethereum.on('chainChanged', (chainId) => {
                     if (chainId !== SEPOLIA_CHAIN_ID) {
-                        showNotification('⚠️ Cambia a Sepolia Testnet', 'warning');
+                        showNotification('Cambia a Sepolia Testnet', 'warning');
                     } else {
-                        showNotification('✅ Conectado a Sepolia', 'success');
+                        showNotification('Conectado a Sepolia', 'success');
                     }
                 });
 
             } catch (error) {
                 console.error('Error connecting wallet:', error);
-                showNotification('❌ Error conectando la wallet: ' + error.message, 'error');
+                showNotification('Error conectando la wallet: ' + error.message, 'error');
             }
         }
 
@@ -764,11 +851,11 @@
                         return true;
                     } catch (addError) {
                         console.error('Error adding Sepolia:', addError);
-                        showNotification('❌ Error agregando red Sepolia', 'error');
+                        showNotification('Error agregando red Sepolia', 'error');
                         return false;
                     }
                 } else {
-                    showNotification('❌ Error cambiando a Sepolia', 'error');
+                    showNotification('Error cambiando a Sepolia', 'error');
                     return false;
                 }
             }
@@ -788,12 +875,12 @@
 
             // Mostrar nombre de red más claro
             if (chainId === 11155111) {
-                networkInfo.textContent = 'Sepolia Testnet ✅';
+                networkInfo.textContent = 'Sepolia Testnet';
                 networkInfo.style.color = '#10b981';
             } else {
-                networkInfo.textContent = `Chain ${chainId} ⚠️`;
+                networkInfo.textContent = `Chain ${chainId}`;
                 networkInfo.style.color = '#f59e0b';
-                showNotification('⚠️ No estás en Sepolia Testnet', 'warning');
+                showNotification('No estás en Sepolia Testnet', 'warning');
             }
 
             // Get balance
@@ -802,11 +889,11 @@
 
             // Show wallet info
             walletInfo.style.display = 'block';
-            connectWalletBtn.textContent = '✅ Conectado a Sepolia';
+            connectWalletBtn.textContent = 'Conectado a Sepolia';
             connectWalletBtn.disabled = true;
 
             if (chainId === 11155111) {
-                showNotification('✅ Conectado a Sepolia Testnet', 'success');
+                showNotification('Conectado a Sepolia Testnet', 'success');
                 // Cargar datos del usuario
                 loadMyLibrary();
                 loadMyCreatedGames();
@@ -816,20 +903,20 @@
         function disconnectWallet() {
             currentAccount = null;
             walletInfo.style.display = 'none';
-            connectWalletBtn.textContent = '🔗 Conectar MetaMask (Sepolia)';
+            connectWalletBtn.textContent = 'Conectar MetaMask (Sepolia)';
             connectWalletBtn.disabled = false;
 
             // Limpiar datos
             document.getElementById('libraryList').innerHTML =
-                '<div class="empty-state"><p>🔌 Conecta tu wallet para ver tu biblioteca</p></div>';
+                '<div class="empty-state"><p>Conecta tu wallet para ver tu biblioteca</p></div>';
             document.getElementById('myGamesList').innerHTML =
-                '<div class="empty-state"><p>🔌 Conecta tu wallet para ver tus juegos</p></div>';
+                '<div class="empty-state"><p>Conecta tu wallet para ver tus juegos</p></div>';
         }
 
         // ========== FONDEAR CONTRATO ==========
         async function fundContract() {
             if (!currentAccount) {
-                showNotification('🔌 Conecta tu wallet primero', 'error');
+                showNotification('Conecta tu wallet primero', 'error');
                 return;
             }
 
@@ -839,7 +926,7 @@
             // Verificar que esté en Sepolia
             const network = await provider.getNetwork();
             if (network.chainId !== 11155111) {
-                showNotification('⚠️ Cambia a Sepolia Testnet', 'warning');
+                showNotification('Cambia a Sepolia Testnet', 'warning');
                 return;
             }
 
@@ -856,21 +943,21 @@
                 const result = await response.json();
 
                 if (result.success) {
-                    showNotification(`💰 Contrato fondeado con ${amount} ETH! TX: ${result.receipt.transactionHash.substring(0, 10)}...`, 'success');
+                    showNotification(`Contrato fondeado con ${amount} ETH! TX: ${result.receipt.transactionHash.substring(0, 10)}...`, 'success');
                     loadContractInfo(); // Actualizar balance del contrato
                 } else {
                     throw new Error(result.message);
                 }
             } catch (error) {
                 console.error('Error funding contract:', error);
-                showNotification('❌ Error fondeando contrato: ' + error.message, 'error');
+                showNotification('Error fondeando contrato: ' + error.message, 'error');
             }
         }
 
         // ========== NFT MARKETPLACE FUNCTIONS ==========
         async function loadGames() {
             const list = document.getElementById('gamesList');
-            list.innerHTML = '<div class="loading">🔄 Cargando juegos de Sepolia...</div>';
+            list.innerHTML = '<div class="loading">Cargando juegos de Sepolia...</div>';
 
             try {
                 const response = await fetch(`${API_URL}/api/gamestore/nft/marketplace`);
@@ -883,7 +970,7 @@
                 list.innerHTML = '';
 
                 if (data.games.length === 0) {
-                    list.innerHTML = '<div class="empty-state"><p>🎮 No hay juegos en venta en Sepolia</p><p><small>Usa la pestaña Admin para crear el primer juego</small></p></div>';
+                    list.innerHTML = '<div class="empty-state"><p>No hay juegos en venta en Sepolia</p><p><small>Usa la pestaña Admin para crear el primer juego</small></p></div>';
                     return;
                 }
 
@@ -897,7 +984,7 @@
 
                     div.innerHTML = `
                         ${game.image ? `<img src="${game.image}" alt="${game.name}" class="game-image" onerror="this.style.display='none'">` : ''}
-                        <h3>🎮 ${game.name} ${statusBadge}</h3>
+                        <h3>${game.name} ${statusBadge}</h3>
                         <p>${game.description}</p>
                         <span class="game-genre">${game.genre}</span>
                         <div class="price">${game.priceFormatted} ETH</div>
@@ -911,7 +998,7 @@
                                 '<button class="btn btn-secondary" disabled>No Disponible</button>'
                             }
                             ${currentAccount && currentAccount.toLowerCase() === game.seller.toLowerCase() ?
-                                `<button onclick="openEditModal(${game.id})" class="btn btn-info">✏️ Editar</button>` : ''
+                                `<button onclick="openEditModal(${game.id})" class="btn btn-info">Editar</button>` : ''
                             }
                         </div>
                     `;
@@ -920,20 +1007,20 @@
 
             } catch (error) {
                 console.error('Error loading games:', error);
-                list.innerHTML = `<div class="error">❌ Error cargando juegos: ${error.message}</div>`;
+                list.innerHTML = `<div class="error">Error cargando juegos: ${error.message}</div>`;
             }
         }
 
         async function buyGame(gameId, price) {
             if (!currentAccount) {
-                showNotification('🔌 Conecta tu wallet primero', 'error');
+                showNotification('Conecta tu wallet primero', 'error');
                 return;
             }
 
             // Verificar que esté en Sepolia
             const network = await provider.getNetwork();
             if (network.chainId !== 11155111) {
-                showNotification('⚠️ Cambia a Sepolia Testnet para comprar', 'warning');
+                showNotification('Cambia a Sepolia Testnet para comprar', 'warning');
                 return;
             }
 
@@ -947,7 +1034,7 @@
                 const result = await response.json();
 
                 if (result.success) {
-                    showNotification(`🎉 ¡Juego comprado en Sepolia! TX: ${result.receipt.transactionHash.substring(0, 10)}...`, 'success');
+                    showNotification(`¡Juego comprado en Sepolia! TX: ${result.receipt.transactionHash.substring(0, 10)}...`, 'success');
                     loadGames();
                     loadMyLibrary();
                     loadMyCreatedGames();
@@ -956,7 +1043,7 @@
                 }
             } catch (error) {
                 console.error('Error buying game:', error);
-                showNotification('❌ Error comprando juego: ' + error.message, 'error');
+                showNotification('Error comprando juego: ' + error.message, 'error');
             }
         }
 
@@ -964,12 +1051,12 @@
         async function loadMyLibrary() {
             if (!currentAccount) {
                 document.getElementById('libraryList').innerHTML =
-                    '<div class="empty-state"><p>🔌 Conecta tu wallet para ver tu biblioteca</p></div>';
+                    '<div class="empty-state"><p>Conecta tu wallet para ver tu biblioteca</p></div>';
                 return;
             }
 
             const list = document.getElementById('libraryList');
-            list.innerHTML = '<div class="loading">🔄 Cargando tu biblioteca...</div>';
+            list.innerHTML = '<div class="loading">Cargando tu biblioteca...</div>';
 
             try {
                 // Usar la nueva ruta para juegos poseídos
@@ -985,7 +1072,7 @@
                 if (data.games.length === 0) {
                     list.innerHTML = `
                         <div class="empty-state">
-                            <p>📚 Tu biblioteca está vacía</p>
+                            <p>Tu biblioteca está vacía</p>
                             <p><small>Compra juegos en el marketplace para verlos aquí</small></p>
                         </div>
                     `;
@@ -1002,19 +1089,19 @@
 
                     div.innerHTML = `
                         ${game.image ? `<img src="${game.image}" alt="${game.name}" class="game-image" onerror="this.style.display='none'">` : ''}
-                        <h3>🎮 ${game.name} ${statusBadge}</h3>
+                        <h3>${game.name} ${statusBadge}</h3>
                         <p>${game.description}</p>
                         <span class="game-genre">${game.genre}</span>
                         <p><strong>Precio:</strong> ${game.priceFormatted} ETH</p>
-                        <p><strong>Estado:</strong> ${game.forSale ? '🟡 En venta' : '🟢 En tu biblioteca'}</p>
+                        <p><strong>Estado:</strong> ${game.forSale ? 'En venta' : 'En tu biblioteca'}</p>
                         <p><strong>Vendedor Original:</strong> ${game.seller.substring(0, 8)}...</p>
                         <p><strong>Comprado:</strong> ${new Date(game.createdAt).toLocaleDateString()}</p>
                         <div class="card-actions">
                             ${game.forSale ? 
-                                `<button onclick="removeFromSale(${game.id})" class="btn btn-secondary">❌ Quitar de Venta</button>` :
-                                `<button onclick="listGameForSale(${game.id})" class="btn btn-warning">💰 Poner en Venta</button>`
+                                `<button onclick="removeFromSale(${game.id})" class="btn btn-secondary">Quitar de Venta</button>` :
+                                `<button onclick="listGameForSale(${game.id})" class="btn btn-warning">Poner en Venta</button>`
                             }
-                            <button onclick="updateGamePricePrompt(${game.id})" class="btn btn-info">💰 Cambiar Precio</button>
+                            <button onclick="updateGamePricePrompt(${game.id})" class="btn btn-info">Cambiar Precio</button>
                         </div>
                     `;
                     list.appendChild(div);
@@ -1022,7 +1109,7 @@
 
             } catch (error) {
                 console.error('Error loading library:', error);
-                list.innerHTML = `<div class="error">❌ Error cargando biblioteca: ${error.message}</div>`;
+                list.innerHTML = `<div class="error">Error cargando biblioteca: ${error.message}</div>`;
             }
         }
 
@@ -1030,12 +1117,12 @@
         async function loadMyCreatedGames() {
             if (!currentAccount) {
                 document.getElementById('myGamesList').innerHTML =
-                    '<div class="empty-state"><p>🔌 Conecta tu wallet para ver tus juegos creados</p></div>';
+                    '<div class="empty-state"><p>Conecta tu wallet para ver tus juegos creados</p></div>';
                 return;
             }
 
             const list = document.getElementById('myGamesList');
-            list.innerHTML = '<div class="loading">🔄 Cargando tus juegos creados...</div>';
+            list.innerHTML = '<div class="loading">Cargando tus juegos creados...</div>';
 
             try {
                 const response = await fetch(`${API_URL}/api/gamestore/nft/user/${currentAccount}`);
@@ -1050,7 +1137,7 @@
                 if (data.games.length === 0) {
                     list.innerHTML = `
                         <div class="empty-state">
-                            <p>🎮 No has creado ningún juego</p>
+                            <p>No has creado ningún juego</p>
                             <p><small>Usa el panel Admin para crear tu primer juego</small></p>
                         </div>
                     `;
@@ -1067,22 +1154,22 @@
 
                     div.innerHTML = `
                         ${game.image ? `<img src="${game.image}" alt="${game.name}" class="game-image" onerror="this.style.display='none'">` : ''}
-                        <h3>🎮 ${game.name} ${statusBadge}</h3>
+                        <h3>${game.name} ${statusBadge}</h3>
                         <p>${game.description}</p>
                         <span class="game-genre">${game.genre}</span>
                         <div class="price">${game.priceFormatted} ETH</div>
                         <p><strong>ID:</strong> ${game.id}</p>
                         <p><strong>Creado:</strong> ${new Date(game.createdAt).toLocaleDateString()}</p>
                         <div class="card-actions">
-                            <button onclick="openEditModal(${game.id})" class="btn btn-info">✏️ Editar</button>
+                            <button onclick="openEditModal(${game.id})" class="btn btn-info">Editar</button>
                             ${game.forSale ? 
-                                `<button onclick="removeFromSale(${game.id})" class="btn btn-secondary">❌ Quitar de Venta</button>` :
-                                `<button onclick="listGameForSale(${game.id})" class="btn btn-warning">💰 Poner en Venta</button>`
+                                `<button onclick="removeFromSale(${game.id})" class="btn btn-secondary">Quitar de Venta</button>` :
+                                `<button onclick="listGameForSale(${game.id})" class="btn btn-warning">Poner en Venta</button>`
                             }
-                            <button onclick="updateGamePricePrompt(${game.id})" class="btn">💰 Precio</button>
+                            <button onclick="updateGamePricePrompt(${game.id})" class="btn">Precio</button>
                             ${game.active ? 
-                                `<button onclick="disableGame(${game.id})" class="btn btn-danger">🚫 Desactivar</button>` :
-                                `<button onclick="enableGame(${game.id})" class="btn btn-success">✅ Activar</button>`
+                                `<button onclick="disableGame(${game.id})" class="btn btn-danger">Desactivar</button>` :
+                                `<button onclick="enableGame(${game.id})" class="btn btn-success">Activar</button>`
                             }
                         </div>
                     `;
@@ -1091,7 +1178,7 @@
 
             } catch (error) {
                 console.error('Error loading my created games:', error);
-                list.innerHTML = `<div class="error">❌ Error cargando tus juegos creados: ${error.message}</div>`;
+                list.innerHTML = `<div class="error">Error cargando tus juegos creados: ${error.message}</div>`;
             }
         }
 
@@ -1113,7 +1200,7 @@
                 const result = await response.json();
 
                 if (result.success) {
-                    showNotification(`💰 Juego listado para venta por ${price} ETH!`, 'success');
+                    showNotification(`Juego listado para venta por ${price} ETH!`, 'success');
                     loadMyLibrary();
                     loadMyCreatedGames();
                     loadGames();
@@ -1122,7 +1209,7 @@
                 }
             } catch (error) {
                 console.error('Error listing game:', error);
-                showNotification('❌ Error listando juego: ' + error.message, 'error');
+                showNotification('Error listando juego: ' + error.message, 'error');
             }
         }
 
@@ -1137,7 +1224,7 @@
                 const result = await response.json();
 
                 if (result.success) {
-                    showNotification('✅ Juego quitado de venta', 'success');
+                    showNotification('Juego quitado de venta', 'success');
                     loadMyLibrary();
                     loadMyCreatedGames();
                     loadGames();
@@ -1146,7 +1233,7 @@
                 }
             } catch (error) {
                 console.error('Error removing from sale:', error);
-                showNotification('❌ Error: ' + error.message, 'error');
+                showNotification('Error: ' + error.message, 'error');
             }
         }
 
@@ -1167,7 +1254,7 @@
                 const result = await response.json();
 
                 if (result.success) {
-                    showNotification(`💰 Precio actualizado a ${newPrice} ETH!`, 'success');
+                    showNotification(`Precio actualizado a ${newPrice} ETH!`, 'success');
                     loadMyLibrary();
                     loadMyCreatedGames();
                     loadGames();
@@ -1176,7 +1263,7 @@
                 }
             } catch (error) {
                 console.error('Error updating price:', error);
-                showNotification('❌ Error actualizando precio: ' + error.message, 'error');
+                showNotification('Error actualizando precio: ' + error.message, 'error');
             }
         }
 
@@ -1191,7 +1278,7 @@
                 const result = await response.json();
 
                 if (result.success) {
-                    showNotification('🚫 Juego desactivado', 'success');
+                    showNotification('Juego desactivado', 'success');
                     loadMyLibrary();
                     loadMyCreatedGames();
                     loadGames();
@@ -1200,7 +1287,7 @@
                 }
             } catch (error) {
                 console.error('Error disabling game:', error);
-                showNotification('❌ Error desactivando juego: ' + error.message, 'error');
+                showNotification('Error desactivando juego: ' + error.message, 'error');
             }
         }
 
@@ -1215,7 +1302,7 @@
                 const result = await response.json();
 
                 if (result.success) {
-                    showNotification('✅ Juego activado', 'success');
+                    showNotification('Juego activado', 'success');
                     loadMyLibrary();
                     loadMyCreatedGames();
                     loadGames();
@@ -1224,7 +1311,7 @@
                 }
             } catch (error) {
                 console.error('Error enabling game:', error);
-                showNotification('❌ Error activando juego: ' + error.message, 'error');
+                showNotification('Error activando juego: ' + error.message, 'error');
             }
         }
 
@@ -1250,7 +1337,7 @@
                 document.getElementById('editGameModal').style.display = 'flex';
             } catch (error) {
                 console.error('Error loading game for edit:', error);
-                showNotification('❌ Error cargando juego: ' + error.message, 'error');
+                showNotification('Error cargando juego: ' + error.message, 'error');
             }
         }
 
@@ -1285,7 +1372,7 @@
                 const result = await response.json();
 
                 if (result.success) {
-                    showNotification('✅ Información del juego actualizada!', 'success');
+                    showNotification('Información del juego actualizada!', 'success');
                     closeEditModal();
                     loadMyLibrary();
                     loadMyCreatedGames();
@@ -1295,7 +1382,7 @@
                 }
             } catch (error) {
                 console.error('Error updating game info:', error);
-                showNotification('❌ Error actualizando juego: ' + error.message, 'error');
+                showNotification('Error actualizando juego: ' + error.message, 'error');
             }
         }
 
@@ -1304,14 +1391,14 @@
             event.preventDefault();
 
             if (!currentAccount) {
-                showNotification('🔌 Conecta tu wallet primero', 'error');
+                showNotification('Conecta tu wallet primero', 'error');
                 return;
             }
 
             // Verificar que esté en Sepolia
             const network = await provider.getNetwork();
             if (network.chainId !== 11155111) {
-                showNotification('⚠️ Cambia a Sepolia Testnet para crear juegos', 'warning');
+                showNotification('Cambia a Sepolia Testnet para crear juegos', 'warning');
                 return;
             }
 
@@ -1342,7 +1429,7 @@
                 const result = await response.json();
 
                 if (result.success) {
-                    showNotification(`✅ Juego NFT creado en Sepolia! TX: ${result.receipt.transactionHash.substring(0, 10)}...`, 'success');
+                    showNotification(`Juego NFT creado en Sepolia! TX: ${result.receipt.transactionHash.substring(0, 10)}...`, 'success');
                     document.getElementById('mintForm').reset();
                     loadGames();
                     loadMyLibrary();
@@ -1352,13 +1439,13 @@
                 }
             } catch (error) {
                 console.error('Error minting game:', error);
-                showNotification('❌ Error creando juego: ' + error.message, 'error');
+                showNotification('Error creando juego: ' + error.message, 'error');
             }
         }
 
         async function loadAllGamesForAdmin() {
             const list = document.getElementById('adminGamesList');
-            list.innerHTML = '<div class="loading">🔄 Cargando todos los juegos...</div>';
+            list.innerHTML = '<div class="loading">Cargando todos los juegos...</div>';
 
             try {
                 const response = await fetch(`${API_URL}/api/gamestore/nft/games`);
@@ -1371,7 +1458,7 @@
                 list.innerHTML = '';
 
                 if (data.games.length === 0) {
-                    list.innerHTML = '<div class="empty-state"><p>🎮 No hay juegos en el contrato</p></div>';
+                    list.innerHTML = '<div class="empty-state"><p>No hay juegos en el contrato</p></div>';
                     return;
                 }
 
@@ -1385,7 +1472,7 @@
 
                     div.innerHTML = `
                         ${game.image ? `<img src="${game.image}" alt="${game.name}" class="game-image" onerror="this.style.display='none'">` : ''}
-                        <h3>🎮 ${game.name} ${statusBadge}</h3>
+                        <h3>${game.name} ${statusBadge}</h3>
                         <p>${game.description}</p>
                         <span class="game-genre">${game.genre}</span>
                         <div class="price">${game.priceFormatted} ETH</div>
@@ -1393,10 +1480,10 @@
                         <p><strong>Vendedor:</strong> ${game.seller.substring(0, 8)}...</p>
                         <p><strong>Creado:</strong> ${new Date(game.createdAt).toLocaleDateString()}</p>
                         <div class="card-actions">
-                            <button onclick="openEditModal(${game.id})" class="btn btn-info">✏️ Editar</button>
+                            <button onclick="openEditModal(${game.id})" class="btn btn-info">Editar</button>
                             ${game.active ? 
-                                `<button onclick="disableGame(${game.id})" class="btn btn-danger">🚫 Desactivar</button>` :
-                                `<button onclick="enableGame(${game.id})" class="btn btn-success">✅ Activar</button>`
+                                `<button onclick="disableGame(${game.id})" class="btn btn-danger">Desactivar</button>` :
+                                `<button onclick="enableGame(${game.id})" class="btn btn-success">Activar</button>`
                             }
                         </div>
                     `;
@@ -1405,20 +1492,20 @@
 
             } catch (error) {
                 console.error('Error loading admin games:', error);
-                list.innerHTML = `<div class="error">❌ Error cargando juegos: ${error.message}</div>`;
+                list.innerHTML = `<div class="error">Error cargando juegos: ${error.message}</div>`;
             }
         }
 
         async function releasePayments() {
             if (!currentAccount) {
-                showNotification('🔌 Conecta tu wallet primero', 'error');
+                showNotification('Conecta tu wallet primero', 'error');
                 return;
             }
 
             // Verificar que esté en Sepolia
             const network = await provider.getNetwork();
             if (network.chainId !== 11155111) {
-                showNotification('⚠️ Cambia a Sepolia Testnet', 'warning');
+                showNotification('Cambia a Sepolia Testnet', 'warning');
                 return;
             }
 
@@ -1432,13 +1519,13 @@
                 const result = await response.json();
 
                 if (result.success) {
-                    showNotification(`💰 Pagos liberados en Sepolia! TX: ${result.receipt.transactionHash.substring(0, 10)}...`, 'success');
+                    showNotification(`Pagos liberados en Sepolia! TX: ${result.receipt.transactionHash.substring(0, 10)}...`, 'success');
                 } else {
                     throw new Error(result.message);
                 }
             } catch (error) {
                 console.error('Error releasing payments:', error);
-                showNotification('❌ Error liberando pagos: ' + error.message, 'error');
+                showNotification('Error liberando pagos: ' + error.message, 'error');
             }
         }
 
@@ -1447,14 +1534,14 @@
             event.preventDefault();
 
             if (!currentAccount) {
-                showNotification('🔌 Conecta tu wallet primero', 'error');
+                showNotification('Conecta tu wallet primero', 'error');
                 return;
             }
 
             // Verificar que esté en Sepolia
             const network = await provider.getNetwork();
             if (network.chainId !== 11155111) {
-                showNotification('⚠️ Cambia a Sepolia Testnet', 'warning');
+                showNotification('Cambia a Sepolia Testnet', 'warning');
                 return;
             }
 
@@ -1475,7 +1562,7 @@
                 const result = await response.json();
 
                 if (result.success) {
-                    showNotification(`📤 Transacción enviada en Sepolia! TX: ${result.receipt.transactionHash.substring(0, 10)}...`, 'success');
+                    showNotification(`Transacción enviada en Sepolia! TX: ${result.receipt.transactionHash.substring(0, 10)}...`, 'success');
                     document.getElementById('transactionForm').reset();
                     loadTransactions();
                 } else {
@@ -1483,13 +1570,13 @@
                 }
             } catch (error) {
                 console.error('Error submitting transaction:', error);
-                showNotification('❌ Error enviando transacción: ' + error.message, 'error');
+                showNotification('Error enviando transacción: ' + error.message, 'error');
             }
         }
 
         async function loadTransactions() {
             const list = document.getElementById('transactionsList');
-            list.innerHTML = '<div class="loading">🔄 Cargando transacciones...</div>';
+            list.innerHTML = '<div class="loading">Cargando transacciones...</div>';
 
             try {
                 const response = await fetch(`${API_URL}/api/gamestore/wallet/transactions`);
@@ -1502,7 +1589,7 @@
                 list.innerHTML = '';
 
                 if (data.transactions.length === 0) {
-                    list.innerHTML = '<div class="empty-state"><p>📋 No hay transacciones pendientes</p></div>';
+                    list.innerHTML = '<div class="empty-state"><p>No hay transacciones pendientes</p></div>';
                     return;
                 }
 
@@ -1510,21 +1597,21 @@
                     const div = document.createElement('div');
                     div.className = 'card';
                     div.innerHTML = `
-                        <h3>📤 Transacción #${tx.id}</h3>
+                        <h3>Transacción #${tx.id}</h3>
                         <p><strong>Para:</strong> ${tx.to}</p>
                         <p><strong>Cantidad:</strong> ${tx.amountETH} ETH</p>
                         <p><strong>Aprobaciones:</strong> ${tx.approvalCount} / 2</p>
-                        <p><strong>Estado:</strong> ${tx.executed ? '✅ Ejecutada' : '⏳ Pendiente'}</p>
+                        <p><strong>Estado:</strong> ${tx.executed ? 'Ejecutada' : 'Pendiente'}</p>
                         <div class="approval-buttons">
                             <strong>Aprobar con:</strong>
-                            <button onclick="approveWithAccount(${tx.id}, 0)" class="btn btn-account-0">👤 Cuenta 0</button>
-                            <button onclick="approveWithAccount(${tx.id}, 1)" class="btn btn-account-1">👤 Cuenta 1</button>
+                            <button onclick="approveWithAccount(${tx.id}, 0)" class="btn btn-account-0">Cuenta 0</button>
+                            <button onclick="approveWithAccount(${tx.id}, 1)" class="btn btn-account-1">Cuenta 1</button>
                         </div>
                         <div class="card-actions">
                             ${!tx.executed && tx.approvalCount >= 2 ? `
-                                <button onclick="executeTransaction(${tx.id})" class="btn btn-warning">🚀 Ejecutar</button>
+                                <button onclick="executeTransaction(${tx.id})" class="btn btn-warning">Ejecutar</button>
                             ` : ''}
-                            ${tx.executed ? '<button class="btn btn-secondary" disabled>✅ Completada</button>' : ''}
+                            ${tx.executed ? '<button class="btn btn-secondary" disabled>Completada</button>' : ''}
                         </div>
                     `;
                     list.appendChild(div);
@@ -1532,14 +1619,14 @@
 
             } catch (error) {
                 console.error('Error loading transactions:', error);
-                list.innerHTML = `<div class="error">❌ Error cargando transacciones: ${error.message}</div>`;
+                list.innerHTML = `<div class="error">Error cargando transacciones: ${error.message}</div>`;
             }
         }
 
-        // ✅ NUEVA FUNCIÓN - Aprobar con cuenta específica
+        // NUEVA FUNCIÓN - Aprobar con cuenta específica
         async function approveWithAccount(txId, accountIndex) {
             if (!currentAccount) {
-                showNotification('🔌 Conecta tu wallet primero', 'error');
+                showNotification('Conecta tu wallet primero', 'error');
                 return;
             }
 
@@ -1555,20 +1642,20 @@
                 const result = await response.json();
 
                 if (result.success) {
-                    showNotification(`✅ Transacción #${txId} aprobada con cuenta ${accountIndex}!`, 'success');
+                    showNotification(`Transacción #${txId} aprobada con cuenta ${accountIndex}!`, 'success');
                     loadTransactions();
                 } else {
                     throw new Error(result.message);
                 }
             } catch (error) {
                 console.error('Error approving transaction:', error);
-                showNotification('❌ Error aprobando transacción: ' + error.message, 'error');
+                showNotification('Error aprobando transacción: ' + error.message, 'error');
             }
         }
 
         async function executeTransaction(txId) {
             if (!currentAccount) {
-                showNotification('🔌 Conecta tu wallet primero', 'error');
+                showNotification('Conecta tu wallet primero', 'error');
                 return;
             }
 
@@ -1582,7 +1669,7 @@
                 const result = await response.json();
 
                 if (result.success) {
-                    showNotification(`🚀 Transacción #${txId} ejecutada! TX: ${result.receipt.transactionHash.substring(0, 10)}...`, 'success');
+                    showNotification(`Transacción #${txId} ejecutada! TX: ${result.receipt.transactionHash.substring(0, 10)}...`, 'success');
                     loadTransactions();
                     loadContractInfo(); // Actualizar balance del contrato
                 } else {
@@ -1590,14 +1677,14 @@
                 }
             } catch (error) {
                 console.error('Error executing transaction:', error);
-                showNotification('❌ Error ejecutando transacción: ' + error.message, 'error');
+                showNotification('Error ejecutando transacción: ' + error.message, 'error');
             }
         }
 
         // ========== CONTRACT INFO FUNCTIONS ==========
         async function loadContractInfo() {
             const container = document.getElementById('contractInfo');
-            container.innerHTML = '<div class="loading">🔄 Cargando información del contrato...</div>';
+            container.innerHTML = '<div class="loading">Cargando información del contrato...</div>';
 
             try {
                 const response = await fetch(`${API_URL}/api/gamestore/info`);
@@ -1612,21 +1699,21 @@
 
                 container.innerHTML = `
                     <div class="card">
-                        <h3>📊 Información del Contrato GameStore</h3>
-                        <p><strong>📍 Dirección:</strong> ${data.contractAddress}</p>
-                        <p><strong>💰 Balance:</strong> ${data.balanceETH} ETH</p>
-                        <p><strong>🎮 Total Juegos:</strong> ${data.totalGames}</p>
-                        <p><strong>🟢 Juegos Activos:</strong> ${data.activeGames}</p>
-                        <p><strong>👥 Owners:</strong> ${data.owners.length}</p>
-                        <p><strong>📋 Payees:</strong> ${data.payees.length}</p>
-                        <p><strong>✅ Aprobaciones Requeridas:</strong> ${data.requiredApprovals}</p>
-                        <p><strong>📊 Transacciones:</strong> ${data.transactionCount}</p>
+                        <h3>Información del Contrato GameStore</h3>
+                        <p><strong>Dirección:</strong> ${data.contractAddress}</p>
+                        <p><strong>Balance:</strong> ${data.balanceETH} ETH</p>
+                        <p><strong>Total Juegos:</strong> ${data.totalGames}</p>
+                        <p><strong>Juegos Activos:</strong> ${data.activeGames}</p>
+                        <p><strong>Owners:</strong> ${data.owners.length}</p>
+                        <p><strong>Payees:</strong> ${data.payees.length}</p>
+                        <p><strong>Aprobaciones Requeridas:</strong> ${data.requiredApprovals}</p>
+                        <p><strong>Transacciones:</strong> ${data.transactionCount}</p>
                     </div>
                 `;
 
             } catch (error) {
                 console.error('Error loading contract info:', error);
-                container.innerHTML = `<div class="error">❌ Error cargando información: ${error.message}</div>`;
+                container.innerHTML = `<div class="error">Error cargando información: ${error.message}</div>`;
             }
         }
 
