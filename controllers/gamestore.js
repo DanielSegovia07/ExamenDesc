@@ -12,6 +12,85 @@ if (!GAMESTORE_CONTRACT_ADDRESS) {
     throw new Error('GAMESTORE_CONTRACT_ADDRESS no configurado');
 }
 
+// ========== FUNCIONES DE CÁLCULO DE COMISIÓN ==========
+function calculatePriceWithFee(netPriceETH) {
+    const netPrice = ethers.utils.parseEther(netPriceETH.toString());
+    // Fórmula: precio_total = net_price / 0.95
+    const totalPrice = netPrice.mul(100).div(95); // Invertir el 5%
+    return {
+        totalPriceWei: totalPrice,
+        totalPriceETH: ethers.utils.formatEther(totalPrice),
+        netPriceWei: netPrice,
+        netPriceETH: netPriceETH,
+        feeWei: totalPrice.sub(netPrice),
+        feeETH: ethers.utils.formatEther(totalPrice.sub(netPrice)),
+        feePercentage: 5
+    };
+}
+
+function calculateNetFromTotal(totalPriceETH) {
+    const totalPrice = ethers.utils.parseEther(totalPriceETH.toString());
+    // Fórmula: neto = total * 0.95
+    const netPrice = totalPrice.mul(95).div(100);
+    return {
+        netPriceWei: netPrice,
+        netPriceETH: ethers.utils.formatEther(netPrice),
+        totalPriceWei: totalPrice,
+        totalPriceETH: totalPriceETH,
+        feeWei: totalPrice.sub(netPrice),
+        feeETH: ethers.utils.formatEther(totalPrice.sub(netPrice))
+    };
+}
+
+// ========== FUNCIÓN isOwner PARA VERIFICACIÓN ==========
+async function isOwner(address) {
+    try {
+        const gameStore = getContract(GAMESTORE_CONTRACT_ADDRESS, contract.abi);
+        
+        // Opción 1: Si el contrato tiene función isOwner
+        if (contract.abi.find(item => item.name === 'isOwner' && item.type === 'function')) {
+            const result = await gameStore.isOwner(address);
+            console.log(`[isOwner] ${address} is owner: ${result}`);
+            return result;
+        }
+        
+        // Opción 2: Si el contrato usa Ownable de OpenZeppelin
+        if (contract.abi.find(item => item.name === 'owner' && item.type === 'function')) {
+            const owner = await gameStore.owner();
+            const result = owner.toLowerCase() === address.toLowerCase();
+            console.log(`[owner check] Contract owner: ${owner}, ${address} is owner: ${result}`);
+            return result;
+        }
+        
+        // Opción 3: Si el contrato tiene múltiples owners (como en MultiSig)
+        if (contract.abi.find(item => item.name === 'getOwners' && item.type === 'function')) {
+            const owners = await gameStore.getOwners();
+            const result = owners.some(owner => owner.toLowerCase() === address.toLowerCase());
+            console.log(`[multi-owner check] ${address} is in owners list: ${result}`);
+            return result;
+        }
+        
+        // Opción 4: Verificar si es una de las cuentas hardcodeadas
+        const publicKeys = process.env.PUBLIC_KEYS ? process.env.PUBLIC_KEYS.split(',') : [];
+        const result = publicKeys.some(pubKey => pubKey.toLowerCase() === address.toLowerCase());
+        console.log(`[env check] ${address} is in public keys: ${result}`);
+        
+        return result;
+        
+    } catch (error) {
+        console.error('[isOwner ERROR] Error verificando owner status:', error);
+        
+        // Fallback: Verificar si es una de las cuentas configuradas
+        try {
+            const publicKeys = process.env.PUBLIC_KEYS ? process.env.PUBLIC_KEYS.split(',') : [];
+            return publicKeys.some(pubKey => pubKey.toLowerCase() === address.toLowerCase());
+        } catch (fallbackError) {
+            console.error('[isOwner FALLBACK ERROR]:', fallbackError);
+            return false;
+        }
+    }
+}
+
 // ========== FUNCIONES NFT MEJORADAS ==========
 async function mintGame(recipient, tokenURI, price, name, description, image, genre, account) {
     console.log(`Minting game: ${name}, Price: ${ethers.utils.formatEther(price)} ETH`);
@@ -41,15 +120,28 @@ async function buyGame(gameId, value, account) {
     }
 }
 
-async function listGameForSale(gameId, price, account) {
-    console.log(` Listing game ${gameId} for ${ethers.utils.formatEther(price)} ETH`);
-    return await createTransaction(
-        GAMESTORE_CONTRACT_ADDRESS,
-        contract.abi,
-        'listGameForSale',
-        [gameId, price],
-        account
-    );
+async function listGameForSale(gameId, sellerNetPriceETH, account) {
+    try {
+        // Calcular precio total que pagará el comprador
+        const priceCalc = calculatePriceWithFee(sellerNetPriceETH);
+        
+        console.log(`[LIST WITH FEE] Game ${gameId}`);
+        console.log(`[LIST WITH FEE] Seller wants net: ${sellerNetPriceETH} ETH`);
+        console.log(`[LIST WITH FEE] Buyer pays total: ${priceCalc.totalPriceETH} ETH`);
+        console.log(`[LIST WITH FEE] Fee to contract: ${priceCalc.feeETH} ETH (5%)`);
+        
+        // Listar el juego con el precio TOTAL (lo que paga el comprador)
+        return await createTransaction(
+            GAMESTORE_CONTRACT_ADDRESS,
+            contract.abi,
+            'listGameForSale',
+            [gameId, priceCalc.totalPriceWei],
+            account
+        );
+    } catch (error) {
+        console.error('Error listing game with fee:', error);
+        throw error;
+    }
 }
 
 // ========== NUEVAS FUNCIONES DE GESTIÓN ==========
@@ -64,15 +156,26 @@ async function removeFromSale(gameId, account) {
     );
 }
 
-async function updateGamePrice(gameId, newPrice, account) {
-    console.log(`Updating game ${gameId} price to ${ethers.utils.formatEther(newPrice)} ETH`);
-    return await createTransaction(
-        GAMESTORE_CONTRACT_ADDRESS,
-        contract.abi,
-        'updateGamePrice',
-        [gameId, newPrice],
-        account
-    );
+async function updateGamePrice(gameId, sellerNetPriceETH, account) {
+    try {
+        // Calcular precio total con comisión
+        const priceCalc = calculatePriceWithFee(sellerNetPriceETH);
+        
+        console.log(`[UPDATE PRICE WITH FEE] Game ${gameId}`);
+        console.log(`[UPDATE PRICE WITH FEE] New net price: ${sellerNetPriceETH} ETH`);
+        console.log(`[UPDATE PRICE WITH FEE] New total price: ${priceCalc.totalPriceETH} ETH`);
+        
+        return await createTransaction(
+            GAMESTORE_CONTRACT_ADDRESS,
+            contract.abi,
+            'updateGamePrice',
+            [gameId, priceCalc.totalPriceWei],
+            account
+        );
+    } catch (error) {
+        console.error('Error updating price with fee:', error);
+        throw error;
+    }
 }
 
 async function updateGameInfo(gameId, name, description, image, genre, price, account) {
@@ -213,7 +316,6 @@ async function releasePayments(account) {
 
 // ========== FUNCIONES WALLET ==========
 
-
 async function getTransactions() {
     const gameStore = getContract(GAMESTORE_CONTRACT_ADDRESS, contract.abi);
     
@@ -221,7 +323,6 @@ async function getTransactions() {
         const transactions = await gameStore.getTransactions();
         console.log(`Found ${transactions.length} transactions`);
         
-       
         const formattedTransactions = transactions.map((tx, index) => ({
             id: index,
             to: tx.to,
@@ -280,7 +381,6 @@ async function getBalance() {
     console.log(` Contract balance: ${ethers.utils.formatEther(balance)} ETH`);
     return balance;
 }
-
 
 async function getOwnedGames(userAddress) {
     try {
@@ -355,26 +455,31 @@ function getAccountFromIndex(accountIndex) {
 }
 
 module.exports = {
+    // Nueva función
+    isOwner,
+    
     // NFT
     mintGame,
     buyGame,
     listGameForSale,
     getGamesForSale,
+    calculatePriceWithFee,   
+    calculateNetFromTotal, 
     
-   
+    // Gestión
     removeFromSale,
     updateGamePrice,
     updateGameInfo,
     disableGame,
     enableGame,
     
-   
+    // Consultas
     getGameDetails,
     getAllGames,
     getUserGames,
     getOwnedGames,
     
-   
+    // Payment
     releasePayments,
     
     // Wallet 
@@ -384,7 +489,7 @@ module.exports = {
     getTransactions,
     getAccountFromIndex,
     
-    
+    // Utilitarias
     getBalance,
     getContractInfo
 };
