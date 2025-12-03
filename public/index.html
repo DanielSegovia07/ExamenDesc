@@ -500,60 +500,6 @@
             border: 1px solid rgba(245, 158, 11, 0.3);
         }
 
-        /* Nuevos estilos para el sistema de comisión */
-        .price-breakdown {
-            background: linear-gradient(135deg, rgba(91, 141, 239, 0.1) 0%, rgba(91, 141, 239, 0.05) 100%);
-            padding: 14px;
-            border-radius: 10px;
-            margin: 12px 0;
-            border: 1px solid rgba(91, 141, 239, 0.2);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .price-total {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #5b8def;
-            margin-bottom: 8px;
-            text-shadow: 0 0 10px rgba(91, 141, 239, 0.3);
-        }
-
-        .price-details {
-            font-size: 0.85rem;
-            color: #b0b0b0;
-            line-height: 1.5;
-            background: rgba(0, 0, 0, 0.2);
-            padding: 10px;
-            border-radius: 6px;
-            border-left: 3px solid #10b981;
-        }
-
-        .price-details small {
-            display: block;
-            margin: 4px 0;
-        }
-
-        .fee-info {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            background: rgba(245, 158, 11, 0.1);
-            color: #f59e0b;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            margin-left: 10px;
-            border: 1px solid rgba(245, 158, 11, 0.3);
-        }
-
-        .price-calculation {
-            background: rgba(16, 185, 129, 0.1);
-            padding: 10px;
-            border-radius: 6px;
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            margin-top: 10px;
-        }
-
         @media (max-width: 768px) {
             .grid {
                 grid-template-columns: 1fr;
@@ -683,22 +629,8 @@
                             <input type="text" id="tokenURI" placeholder="https://example.com/game.json" required>
                         </div>
                         <div class="form-group">
-                            <label for="gamePrice">
-                                Precio NETO en ETH (tú recibes):
-                                <span class="fee-info">+5% fee</span>
-                            </label>
-                            <input type="number" id="gamePrice" placeholder="0.0475" step="0.0001" min="0.001" required>
-                            <div class="price-calculation" id="priceCalculation" style="margin-top: 8px; display: none;">
-                                <small style="color: #10b981;">
-                                    <strong>Desglose:</strong><br>
-                                    • <span id="netPrice">0.0475</span> ETH (tú recibes)<br>
-                                    • <span id="feeAmount">0.0025</span> ETH (fee 5% al contrato)<br>
-                                    • <span id="totalPrice">0.05</span> ETH (comprador paga)
-                                </small>
-                            </div>
-                            <small style="color: #8a8a8a; display: block; margin-top: 5px;">
-                                El comprador pagará 5.26% más. Ejemplo: 0.95 ETH neto → 1.00 ETH total
-                            </small>
+                            <label for="gamePrice">Precio en ETH:</label>
+                            <input type="number" id="gamePrice" placeholder="0.05" step="0.001" min="0.001" required>
                         </div>
                         <div class="form-group">
                             <label for="recipient">Destinatario (tu wallet):</label>
@@ -800,11 +732,8 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="editGamePrice">Precio NETO (ETH):</label>
+                        <label for="editGamePrice">Precio (ETH):</label>
                         <input type="number" id="editGamePrice" step="0.001" min="0.001" required>
-                        <small style="color: #8a8a8a; display: block; margin-top: 5px;">
-                            Precio que recibirás neto (comprador pagará 5.26% más)
-                        </small>
                     </div>
                     <div class="card-actions">
                         <button type="submit" class="btn btn-success">Guardar Cambios</button>
@@ -839,77 +768,10 @@
             checkWalletConnection();
             loadGames();
             loadContractInfo();
-            autofillRecipient();
-            
-            // Configurar cálculo de precio en tiempo real
-            setupPriceCalculation();
+            autofillRecipient(); // Auto-completar al cargar la página
         });
 
         connectWalletBtn.onclick = connectWallet;
-
-        // ========== FUNCIONES DE CÁLCULO DE PRECIO ==========
-        function setupPriceCalculation() {
-            const priceInput = document.getElementById('gamePrice');
-            const priceCalculation = document.getElementById('priceCalculation');
-            const netPriceSpan = document.getElementById('netPrice');
-            const feeAmountSpan = document.getElementById('feeAmount');
-            const totalPriceSpan = document.getElementById('totalPrice');
-            
-            if (priceInput) {
-                priceInput.addEventListener('input', function() {
-                    const netPrice = parseFloat(this.value);
-                    
-                    if (!isNaN(netPrice) && netPrice > 0) {
-                        // Calcular total (5% de comisión)
-                        const totalPrice = netPrice / 0.95;
-                        const fee = totalPrice * 0.05;
-                        
-                        // Actualizar display
-                        netPriceSpan.textContent = netPrice.toFixed(6);
-                        feeAmountSpan.textContent = fee.toFixed(6);
-                        totalPriceSpan.textContent = totalPrice.toFixed(6);
-                        
-                        // Mostrar cálculo
-                        priceCalculation.style.display = 'block';
-                    } else {
-                        priceCalculation.style.display = 'none';
-                    }
-                });
-            }
-        }
-
-        function calculatePriceWithFee(netPriceETH) {
-            const netPrice = parseFloat(netPriceETH);
-            if (isNaN(netPrice) || netPrice <= 0) return null;
-            
-            const totalPrice = netPrice / 0.95;
-            const fee = totalPrice * 0.05;
-            
-            return {
-                netPrice: netPrice.toFixed(6),
-                totalPrice: totalPrice.toFixed(6),
-                fee: fee.toFixed(6),
-                feePercentage: 5
-            };
-        }
-
-        function formatPriceBreakdown(totalPriceETH) {
-            const totalPrice = parseFloat(totalPriceETH);
-            if (isNaN(totalPrice) || totalPrice <= 0) return '';
-            
-            const netPrice = totalPrice * 0.95;
-            const fee = totalPrice * 0.05;
-            
-            return `
-                <div class="price-breakdown">
-                    <div class="price-total">Precio Total: <strong>${totalPrice.toFixed(6)} ETH</strong></div>
-                    <div class="price-details">
-                        <small>Vendedor recibe: ${netPrice.toFixed(6)} ETH</small>
-                        <small>Fee contrato (5%): ${fee.toFixed(6)} ETH</small>
-                    </div>
-                </div>
-            `;
-        }
 
         // ========== WALLET FUNCTIONS ==========
         async function checkWalletConnection() {
@@ -1159,13 +1021,13 @@
                         <h3>${game.name} ${statusBadge}</h3>
                         <p>${game.description}</p>
                         <span class="game-genre">${game.genre}</span>
-                        ${formatPriceBreakdown(game.priceFormatted)}
+                        <div class="price">${game.priceFormatted} ETH</div>
                         <p><strong>Vendedor:</strong> ${game.seller.substring(0, 8)}...</p>
                         <p><strong>Creado:</strong> ${new Date(game.createdAt).toLocaleDateString()}</p>
                         <div class="card-actions">
                             ${game.active && game.forSale ? 
-                                `<button onclick="buyGameWithConfirm(${game.id}, ${game.priceFormatted})" class="btn btn-success">
-                                    Comprar ${parseFloat(game.priceFormatted).toFixed(4)} ETH
+                                `<button onclick="buyGame(${game.id}, '${game.priceFormatted}')" class="btn btn-success">
+                                    Comprar en Sepolia
                                 </button>` : 
                                 '<button class="btn btn-secondary" disabled>No Disponible</button>'
                             }
@@ -1219,24 +1081,6 @@
             }
         }
 
-        async function buyGameWithConfirm(gameId, totalPrice) {
-            const netPrice = totalPrice * 0.95;
-            const fee = totalPrice * 0.05;
-            
-            const confirmMsg = `CONFIRMAR COMPRA:\n\n` +
-                `Juego ID: ${gameId}\n` +
-                `Pagas TOTAL: ${totalPrice.toFixed(6)} ETH\n\n` +
-                `Desglose:\n` +
-                `Vendedor recibe: ${netPrice.toFixed(6)} ETH\n` +
-                `Fee al contrato: ${fee.toFixed(6)} ETH (5%)\n\n` +
-                `¿Continuar con la compra?`;
-            
-            if (!confirm(confirmMsg)) return;
-            
-            // Llamar a la función normal de compra
-            await buyGame(gameId, totalPrice.toString());
-        }
-
         // ========== BIBLIOTECA FUNCTIONS ==========
         async function loadMyLibrary() {
             if (!currentAccount) {
@@ -1282,7 +1126,7 @@
                         <h3>${game.name} ${statusBadge}</h3>
                         <p>${game.description}</p>
                         <span class="game-genre">${game.genre}</span>
-                        ${formatPriceBreakdown(game.priceFormatted)}
+                        <p><strong>Precio:</strong> ${game.priceFormatted} ETH</p>
                         <p><strong>Estado:</strong> ${game.forSale ? 'En venta' : 'En tu biblioteca'}</p>
                         <p><strong>Vendedor Original:</strong> ${game.seller.substring(0, 8)}...</p>
                         <p><strong>Comprado:</strong> ${new Date(game.createdAt).toLocaleDateString()}</p>
@@ -1347,7 +1191,7 @@
                         <h3>${game.name} ${statusBadge}</h3>
                         <p>${game.description}</p>
                         <span class="game-genre">${game.genre}</span>
-                        ${formatPriceBreakdown(game.priceFormatted)}
+                        <div class="price">${game.priceFormatted} ETH</div>
                         <p><strong>ID:</strong> ${game.id}</p>
                         <p><strong>Creado:</strong> ${new Date(game.createdAt).toLocaleDateString()}</p>
                         <div class="card-actions">
@@ -1374,59 +1218,32 @@
 
         // ========== FUNCIONES DE GESTIÓN ==========
         async function listGameForSale(gameId) {
-            const sellerNetPrice = prompt(
-                "¿Cuánto ETH quieres recibir NETO por este juego?\n\n" +
-                "El comprador pagará 5% extra que irá al contrato.\n" +
-                "Ejemplo: Si quieres recibir 0.95 ETH neto,\n" +
-                "el comprador pagará 1.00 ETH total\n\n" +
-                "Ingresa la cantidad NETO que quieres recibir:",
-                "0.0475"
-            );
-            
-            if (!sellerNetPrice) return;
-            
-            // Calcular precio total para mostrar confirmación
-            const priceCalc = calculatePriceWithFee(sellerNetPrice);
-            
-            if (!priceCalc) {
-                showNotification('Precio inválido', 'error');
-                return;
-            }
-            
-            const confirmMsg = `RESUMEN DE PRECIOS:\n\n` +
-                `Juego ID: ${gameId}\n` +
-                `Tú recibes NETO: ${priceCalc.netPrice} ETH\n` +
-                `Comprador paga TOTAL: ${priceCalc.totalPrice} ETH\n` +
-                `Fee al contrato (5%): ${priceCalc.fee} ETH\n\n` +
-                `¿Confirmar publicación?`;
-            
-            if (!confirm(confirmMsg)) return;
-            
-            // Llamar al backend
+            const price = prompt("Precio en ETH para vender este juego:", "0.05");
+            if (!price) return;
+
             try {
                 const response = await fetch(`${API_URL}/api/gamestore/nft/${gameId}/list`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        price: sellerNetPrice, // Enviamos el NETO
+                        price: price,
                         account: '0'
                     })
                 });
 
                 const result = await response.json();
-                
+
                 if (result.success) {
-                    showNotification(
-                        `Juego listado!\n` +
-                        `Comprador pagará: ${result.priceDetails.buyerTotalPrice}\n` +
-                        `Tú recibes: ${result.priceDetails.sellerNetPrice}`,
-                        'success'
-                    );
+                    showNotification(`Juego listado para venta por ${price} ETH!`, 'success');
                     loadMyLibrary();
+                    loadMyCreatedGames();
                     loadGames();
+                } else {
+                    throw new Error(result.message);
                 }
             } catch (error) {
-                showNotification('Error: ' + error.message, 'error');
+                console.error('Error listing game:', error);
+                showNotification('Error listando juego: ' + error.message, 'error');
             }
         }
 
@@ -1455,40 +1272,15 @@
         }
 
         async function updateGamePricePrompt(gameId) {
-            const sellerNetPrice = prompt(
-                "¿Cuánto ETH quieres recibir NETO por este juego?\n\n" +
-                "El comprador pagará 5% extra que irá al contrato.\n" +
-                "Ejemplo: Si quieres recibir 0.95 ETH neto,\n" +
-                "el comprador pagará 1.00 ETH total\n\n" +
-                "Ingresa la nueva cantidad NETO que quieres recibir:",
-                "0.0475"
-            );
-            
-            if (!sellerNetPrice) return;
+            const newPrice = prompt("Nuevo precio en ETH:", "0.05");
+            if (!newPrice) return;
 
-            // Calcular precio total para mostrar confirmación
-            const priceCalc = calculatePriceWithFee(sellerNetPrice);
-            
-            if (!priceCalc) {
-                showNotification('Precio inválido', 'error');
-                return;
-            }
-            
-            const confirmMsg = `RESUMEN DE PRECIOS:\n\n` +
-                `Juego ID: ${gameId}\n` +
-                `Tú recibes NETO: ${priceCalc.netPrice} ETH\n` +
-                `Comprador paga TOTAL: ${priceCalc.totalPrice} ETH\n` +
-                `Fee al contrato (5%): ${priceCalc.fee} ETH\n\n` +
-                `¿Confirmar cambio de precio?`;
-            
-            if (!confirm(confirmMsg)) return;
-            
             try {
                 const response = await fetch(`${API_URL}/api/gamestore/nft/${gameId}/price`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        price: sellerNetPrice,
+                        price: newPrice,
                         account: '0'
                     })
                 });
@@ -1496,12 +1288,7 @@
                 const result = await response.json();
 
                 if (result.success) {
-                    showNotification(
-                        `Precio actualizado!\n` +
-                        `Nuevo precio total: ${result.priceDetails.buyerTotalPrice}\n` +
-                        `Tú recibes: ${result.priceDetails.sellerNetPrice}`,
-                        'success'
-                    );
+                    showNotification(`Precio actualizado a ${newPrice} ETH!`, 'success');
                     loadMyLibrary();
                     loadMyCreatedGames();
                     loadGames();
@@ -1574,16 +1361,12 @@
 
                 const game = result.game;
                 
-                // Calcular precio neto desde el total
-                const totalPrice = parseFloat(game.priceFormatted);
-                const netPrice = totalPrice * 0.95;
-                
                 document.getElementById('editGameId').value = gameId;
                 document.getElementById('editGameName').value = game.name;
                 document.getElementById('editGameDescription').value = game.description;
                 document.getElementById('editGameImage').value = game.image;
                 document.getElementById('editGameGenre').value = game.genre;
-                document.getElementById('editGamePrice').value = netPrice.toFixed(6);
+                document.getElementById('editGamePrice').value = game.priceFormatted;
 
                 document.getElementById('editGameModal').style.display = 'flex';
             } catch (error) {
@@ -1604,7 +1387,7 @@
             const description = document.getElementById('editGameDescription').value;
             const image = document.getElementById('editGameImage').value;
             const genre = document.getElementById('editGameGenre').value;
-            const netPrice = document.getElementById('editGamePrice').value;
+            const price = document.getElementById('editGamePrice').value;
 
             try {
                 const response = await fetch(`${API_URL}/api/gamestore/nft/${gameId}/info`, {
@@ -1615,7 +1398,7 @@
                         description: description,
                         image: image,
                         genre: genre,
-                        price: netPrice, // Enviamos el NETO
+                        price: price,
                         account: '0'
                     })
                 });
@@ -1654,7 +1437,7 @@
             }
 
             const tokenURI = document.getElementById('tokenURI').value;
-            const price = document.getElementById('gamePrice').value; // Este es el NETO
+            const price = document.getElementById('gamePrice').value;
             const recipient = document.getElementById('recipient').value;
             const name = document.getElementById('gameName').value;
             const description = document.getElementById('gameDescription').value;
@@ -1667,7 +1450,7 @@
             // Verificar que el destinatario sea el usuario conectado
             if (finalRecipient.toLowerCase() !== currentAccount.toLowerCase()) {
                 const confirmOverride = confirm(
-                    'ATENCION\n\n' +
+                    '⚠️  ATENCIÓN  ⚠️\n\n' +
                     'Estás intentando crear un juego para otra dirección.\n\n' +
                     `Tu dirección actual: ${currentAccount}\n` +
                     `Destinatario ingresado: ${finalRecipient}\n\n` +
@@ -1681,21 +1464,6 @@
                 }
             }
 
-            // Calcular desglose para confirmación
-            const priceCalc = calculatePriceWithFee(price);
-            if (!priceCalc) {
-                showNotification('Precio inválido', 'error');
-                return;
-            }
-            
-            const confirmMsg = `RESUMEN DE PRECIOS:\n\n` +
-                `Tú recibes NETO: ${priceCalc.netPrice} ETH\n` +
-                `Comprador paga TOTAL: ${priceCalc.totalPrice} ETH\n` +
-                `Fee al contrato (5%): ${priceCalc.fee} ETH\n\n` +
-                `¿Confirmar creación del juego?`;
-            
-            if (!confirm(confirmMsg)) return;
-
             try {
                 const response = await fetch(`${API_URL}/api/gamestore/nft/mint`, {
                     method: 'POST',
@@ -1703,7 +1471,7 @@
                     body: JSON.stringify({
                         recipient: finalRecipient,
                         tokenURI: tokenURI,
-                        price: price, // Enviamos el NETO
+                        price: price,
                         name: name,
                         description: description,
                         image: image,
@@ -1722,13 +1490,10 @@
                     document.getElementById('gameDescription').value = '';
                     document.getElementById('gameImage').value = '';
                     document.getElementById('tokenURI').value = '';
-                    document.getElementById('gamePrice').value = '0.0475';
+                    document.getElementById('gamePrice').value = '0.05';
                     document.getElementById('gameGenre').value = '';
                     // NO resetear el campo destinatario - mantener la wallet conectada
                     autofillRecipient();
-                    
-                    // Ocultar cálculo
-                    document.getElementById('priceCalculation').style.display = 'none';
                     
                     loadGames();
                     loadMyLibrary();
@@ -1774,7 +1539,7 @@
                         <h3>${game.name} ${statusBadge}</h3>
                         <p>${game.description}</p>
                         <span class="game-genre">${game.genre}</span>
-                        ${formatPriceBreakdown(game.priceFormatted)}
+                        <div class="price">${game.priceFormatted} ETH</div>
                         <p><strong>ID:</strong> ${game.id}</p>
                         <p><strong>Vendedor:</strong> ${game.seller.substring(0, 8)}...</p>
                         <p><strong>Creado:</strong> ${new Date(game.createdAt).toLocaleDateString()}</p>

@@ -114,6 +114,7 @@ router.post('/nft/:gameId/buy', async (req, res) => {
 
 // ========== FONDEAR CONTRATO ==========
 
+
 router.post('/contract/fund', async (req, res) => {
     try {
         const { amount, account } = req.body;
@@ -132,126 +133,35 @@ router.post('/contract/fund', async (req, res) => {
             });
         }
 
-        console.log(`[FUND REQUEST] Intentando fondear con ${amount} ETH usando cuenta ${account}`);
+        console.log(` Fondeando contrato con ${amount} ETH desde cuenta ${account}`);
 
-        // ========== VERIFICACIÓN: SOLO OWNERS ==========
-        // 1. Obtener la dirección del signer (cuenta que firma la transacción)
+       
         const accountInfo = gameStoreController.getAccountFromIndex(parseInt(account));
-        const signerAddress = accountInfo.address;
-        
-        console.log(`[FUND CHECK] Signer address: ${signerAddress}`);
-        
-        // 2. Verificar si es owner del contrato
-        const isOwner = await gameStoreController.isOwner(signerAddress);
-        
-        if (!isOwner) {
-            console.log(`[FUND DENIED] ${signerAddress} NO es owner del contrato`);
-            return res.status(403).json({ 
-                success: false, 
-                message: 'Solo los owners pueden fondear el contrato',
-                details: {
-                    signerAddress: signerAddress,
-                    isOwner: false
-                }
-            });
-        }
-        
-        console.log(`[FUND APPROVED] ${signerAddress} ES owner del contrato`);
-        // ========== FIN DE VERIFICACIÓN ==========
-
-        console.log(`[OWNER FUNDING] Fondeando contrato con ${amount} ETH desde ${signerAddress}`);
-
-        // Crear provider y wallet para firmar
         const provider = new ethers.providers.JsonRpcProvider(process.env.API_URL);
         const wallet = new ethers.Wallet(accountInfo.privateKey, provider);
         
-        // Verificar balance del wallet antes de enviar
-        const walletBalance = await wallet.getBalance();
-        const amountInWei = ethers.utils.parseEther(amount.toString());
-        
-        if (walletBalance.lt(amountInWei)) {
-            return res.status(400).json({ 
-                success: false, 
-                message: 'Fondos insuficientes en la wallet del owner',
-                details: {
-                    walletBalance: ethers.utils.formatEther(walletBalance) + ' ETH',
-                    requiredAmount: amount + ' ETH',
-                    difference: ethers.utils.formatEther(walletBalance.sub(amountInWei)) + ' ETH'
-                }
-            });
-        }
-
-        console.log(`[TX PREPARED] Enviando ${amount} ETH de ${signerAddress} a ${GAMESTORE_CONTRACT_ADDRESS}`);
-        
-        // Enviar transacción
+    
         const tx = await wallet.sendTransaction({
             to: GAMESTORE_CONTRACT_ADDRESS,
-            value: amountInWei,
-            gasLimit: 30000 // Ajuste de gas para transferencia simple
+            value: ethers.utils.parseEther(amount.toString())
         });
         
-        console.log(`[TX SENT] Transacción enviada: ${tx.hash}`);
-        
-        // Esperar confirmación
         const receipt = await tx.wait();
-        
-        console.log(`[TX CONFIRMED] Transacción confirmada en bloque ${receipt.blockNumber}`);
-        
-        // Obtener nuevo balance del contrato
-        const provider2 = new ethers.providers.JsonRpcProvider(process.env.API_URL);
-        const newContractBalance = await provider2.getBalance(GAMESTORE_CONTRACT_ADDRESS);
         
         res.json({ 
             success: true, 
-            message: `Contrato fondeado con ${amount} ETH exitosamente`,
+            message: `Contrato fondeado con ${amount} ETH`,
             receipt: {
                 transactionHash: receipt.transactionHash,
-                from: receipt.from,
-                to: receipt.to,
                 contractAddress: GAMESTORE_CONTRACT_ADDRESS,
-                amountETH: amount,
-                amountWei: amountInWei.toString(),
-                gasUsed: receipt.gasUsed.toString(),
-                blockNumber: receipt.blockNumber,
-                timestamp: new Date().toISOString()
-            },
-            balance: {
-                before: ethers.utils.formatEther(walletBalance) + ' ETH',
-                after: ethers.utils.formatEther(walletBalance.sub(amountInWei)) + ' ETH'
-            },
-            contract: {
-                address: GAMESTORE_CONTRACT_ADDRESS,
-                newBalance: ethers.utils.formatEther(newContractBalance) + ' ETH',
-                fundedBy: signerAddress
+                amountETH: amount
             }
         });
-        
     } catch (error) {
-        console.error('[FUND ERROR] Error fondeando contrato:', error);
-        
-        // Mensaje de error más detallado
-        let errorMessage = error.message;
-        let errorCode = 500;
-        
-        if (error.code === 'INSUFFICIENT_FUNDS') {
-            errorMessage = 'Fondos insuficientes para completar la transacción';
-            errorCode = 400;
-        } else if (error.code === 'NETWORK_ERROR') {
-            errorMessage = 'Error de conexión con la red blockchain';
-            errorCode = 503;
-        } else if (error.message.includes('rejected')) {
-            errorMessage = 'Transacción rechazada por el usuario';
-            errorCode = 400;
-        }
-        
-        res.status(errorCode).json({ 
+        console.error('Error fondeando contrato:', error);
+        res.status(500).json({ 
             success: false, 
-            message: errorMessage,
-            errorDetails: {
-                code: error.code,
-                reason: error.reason,
-                action: error.action
-            }
+            message: error.message 
         });
     }
 });
@@ -260,7 +170,7 @@ router.post('/contract/fund', async (req, res) => {
 router.post('/nft/:gameId/list', async (req, res) => {
     try {
         const { gameId } = req.params;
-        const { price, account } = req.body; // 'price' ahora es el NETO que quiere el vendedor
+        const { price, account } = req.body;
 
         if (!price || !account) {
             return res.status(400).json({ 
@@ -269,24 +179,12 @@ router.post('/nft/:gameId/list', async (req, res) => {
             });
         }
 
-        const receipt = await gameStoreController.listGameForSale(
-            parseInt(gameId), 
-            price, // Precio NETO
-            account
-        );
-        
-        // Obtener cálculo para respuesta
-        const priceCalc = gameStoreController.calculatePriceWithFee(price);
+        const priceInWei = ethers.utils.parseEther(price.toString());
+        const receipt = await gameStoreController.listGameForSale(parseInt(gameId), priceInWei, account);
         
         res.json({ 
             success: true, 
             message: 'Juego listado para venta',
-            priceDetails: {
-                sellerNetPrice: price + ' ETH',
-                buyerTotalPrice: priceCalc.totalPriceETH + ' ETH',
-                contractFee: priceCalc.feeETH + ' ETH',
-                feePercentage: '5%'
-            },
             receipt: {
                 transactionHash: receipt.transactionHash
             }
@@ -337,7 +235,7 @@ router.post('/nft/:gameId/remove-from-sale', async (req, res) => {
 router.put('/nft/:gameId/price', async (req, res) => {
     try {
         const { gameId } = req.params;
-        const { price, account } = req.body; // 'price' es el NETO que quiere el vendedor
+        const { price, account } = req.body;
 
         if (!price || !account) {
             return res.status(400).json({ 
@@ -346,24 +244,12 @@ router.put('/nft/:gameId/price', async (req, res) => {
             });
         }
 
-        const receipt = await gameStoreController.updateGamePrice(
-            parseInt(gameId), 
-            price, // Precio NETO
-            account
-        );
-        
-        // Obtener cálculo
-        const priceCalc = gameStoreController.calculatePriceWithFee(price);
+        const priceInWei = ethers.utils.parseEther(price.toString());
+        const receipt = await gameStoreController.updateGamePrice(parseInt(gameId), priceInWei, account);
         
         res.json({ 
             success: true, 
             message: 'Precio actualizado exitosamente',
-            priceDetails: {
-                sellerNetPrice: price + ' ETH',
-                buyerTotalPrice: priceCalc.totalPriceETH + ' ETH',
-                contractFee: priceCalc.feeETH + ' ETH',
-                feePercentage: '5%'
-            },
             receipt: {
                 transactionHash: receipt.transactionHash
             }
